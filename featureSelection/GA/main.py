@@ -54,35 +54,3 @@ def genetic_algorithm(
     except Exception as e:
         print("GA Failed because: {}".format(e))
         return False, None
-
-
-if __name__ == "__main__":
-    from sklearn.datasets import load_iris
-    from sklearn.model_selection import train_test_split
-    from sklearn.tree import DecisionTreeClassifier
-    from sklearn.metrics import accuracy_score
-
-    # Load the iris dataset
-    iris = load_iris()
-
-    # Split the dataset into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(
-        iris.data, iris.target, test_size=0.2)
-
-    # Train a decision tree classifier on the training set
-    clf = DecisionTreeClassifier()
-    clf.fit(X_train, y_train)
-
-    # Make predictions on the testing set
-    y_pred = clf.predict(X_test)
-
-    # Evaluate the accuracy of the classifier
-    accuracy = accuracy_score(y_test, y_pred)
-    print("Accuracy:", accuracy)
-
-    # Load Data
-    load_success, df = DataLoader.load_data()
-    # Impute Missing Data (using median)
-    impute_success, X, y = DataCleanser.impute_missing_value(df)
-    selected_X = genetic_algorithm(X, y)
-    print(selected_X.shape)

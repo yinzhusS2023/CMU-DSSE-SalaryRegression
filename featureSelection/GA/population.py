@@ -77,7 +77,7 @@ class Population:
 
             offspring = partner_a.crossover(partner_b)
             offspring.mutate(self.mutation_rate)
-            offspring.calculate_fitness(self.X, self.Y, self.model_name)
+            offspring.calculate_fitness(self.X, self.Y, self.classifier, self.validation_function)
 
             self.average_fitness += offspring.fitness
             new_population.append(offspring)
@@ -103,9 +103,8 @@ class Population:
                 self.max_fitness = best_fitness
                 self.best_individual = individual
 
-        if self.validation_function(best_fitness):
+        if self.threshold_function(best_fitness):
             self.finished = True
-            
 
     def print_population_status(self):
         print("\nGeneration: " + str(self.generation))
