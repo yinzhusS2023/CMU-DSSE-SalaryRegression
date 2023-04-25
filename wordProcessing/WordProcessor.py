@@ -1,9 +1,12 @@
 # Modules
+# Lemmatizer
 from nltk.stem import WordNetLemmatizer
 import nltk
-from sqlalchemy import column
 nltk.download('omw-1.4')
 nltk.download('wordnet')
+# Stop words
+from nltk.corpus import stopwords
+nltk.download('stopwords')
 
 
 class WordProcessor:
@@ -42,7 +45,7 @@ class WordProcessor:
 
     @staticmethod
     def apply_nltk_lemmatize(df, column_name):
-        try: 
+        try:
             WNL = WordNetLemmatizer()
             num_rows = len(df)
             result = []
@@ -51,9 +54,26 @@ class WordProcessor:
                 lemmatized_list = [WNL.lemmatize(
                     word, pos="v") for word in text_words]
                 result.append(" ".join(lemmatized_list))
-            df[column] = result
+            df[column_name] = result
             return True
         except Exception as e:
             print(
                 "Error[In WordProcessor.apply_nltk_lemmatize]: Failed because: " + str(e))
             return False
+        
+
+    @staticmethod
+    def apply_nltk_remove_stopwords(df, column_name):
+        try:
+            stop_words = list(stopwords.words('english'))
+            for stop_word in stop_words:
+                regex_stopword = r"\b" + stop_word + r"\b"
+                df[column_name] = df[column_name].str.replace(regex_stopword, '', regex=True)
+            df[column_name] = df[column_name].replace(r'\s+', ' ', regex=True)
+            return True
+        except Exception as e:
+            print(
+                "Error[In WordProcessor.apply_nltk_remove_stopwords]: Failed because: " + str(e))
+            return False
+        
+    
