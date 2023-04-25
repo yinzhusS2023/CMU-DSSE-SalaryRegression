@@ -1,11 +1,11 @@
 # Modules
 # Lemmatizer
+from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import nltk
 nltk.download('omw-1.4')
 nltk.download('wordnet')
 # Stop words
-from nltk.corpus import stopwords
 nltk.download('stopwords')
 
 
@@ -34,16 +34,6 @@ class WordProcessor:
             return False
 
     @staticmethod
-    def remove_s(df, column_name):
-        try:
-            df[column_name] = df[column_name].str.replace("'s", "", regex=True)
-            return True
-        except Exception as e:
-            print(
-                "Error[In WordProcessor.remove_s]: Failed because: " + str(e))
-            return False
-
-    @staticmethod
     def apply_nltk_lemmatize(df, column_name):
         try:
             WNL = WordNetLemmatizer()
@@ -60,7 +50,6 @@ class WordProcessor:
             print(
                 "Error[In WordProcessor.apply_nltk_lemmatize]: Failed because: " + str(e))
             return False
-        
 
     @staticmethod
     def apply_nltk_remove_stopwords(df, column_name):
@@ -68,12 +57,11 @@ class WordProcessor:
             stop_words = list(stopwords.words('english'))
             for stop_word in stop_words:
                 regex_stopword = r"\b" + stop_word + r"\b"
-                df[column_name] = df[column_name].str.replace(regex_stopword, '', regex=True)
+                df[column_name] = df[column_name].str.replace(
+                    regex_stopword, '', regex=True)
             df[column_name] = df[column_name].replace(r'\s+', ' ', regex=True)
             return True
         except Exception as e:
             print(
                 "Error[In WordProcessor.apply_nltk_remove_stopwords]: Failed because: " + str(e))
             return False
-        
-    
