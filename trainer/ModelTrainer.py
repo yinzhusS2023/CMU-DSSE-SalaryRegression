@@ -25,9 +25,8 @@ class ModelTrainer:
     MODEL_PARAMS = {
         "LinearRegression": {
             'fit_intercept': [True, False],
-            'normalize': [True, False],
             'copy_X': [True, False],
-            'solver': ['svd', 'cholesky', 'lsqr', 'sparse_cg', 'sag', 'saga']
+            'positive': [True, False],
         },
         "BayesianRidge": {
             'alpha_1': [1e-6, 1e-5, 1e-4, 1e-3],
@@ -66,7 +65,7 @@ class ModelTrainer:
     def train_by_grid_search(X, y, model_name='LinearRegression', model_params=None, cv=10):
         try:
             training_start = time.time()
-            grid_search = GridSearchCV(ModelTrainer.MODEL_MAP[model_name], param_grid=model_params if (
+            grid_search = GridSearchCV(ModelTrainer.MODEL_MAP[model_name](), param_grid=model_params if (
                 model_params is not None) else ModelTrainer.MODEL_PARAMS[model_name], cv=cv, n_jobs=-1)
             grid_search.fit(X, y)
             training_time = time.time() - training_start
