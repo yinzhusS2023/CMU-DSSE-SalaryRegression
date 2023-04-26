@@ -1,1 +1,2 @@
 from .PearsonCorrelationCoefficient import PearsonCorrelationCoefficient
+from .ChiSquare import ChiSquare

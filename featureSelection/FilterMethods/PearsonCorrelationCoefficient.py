@@ -6,6 +6,7 @@ import numpy as np
 
 class PearsonCorrelationCoefficient:
 
+    @staticmethod
     def feature_selection(data, threshold=0.5):
         try:     
             time_start = time.time()
