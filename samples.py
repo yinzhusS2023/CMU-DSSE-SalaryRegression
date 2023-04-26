@@ -1,8 +1,5 @@
 
 
-from copyreg import constructor
-
-
 def GA_Feature_Selection_Sample():
 
     from sklearn.datasets import load_iris
@@ -107,5 +104,26 @@ def SA_Feature_Selection_Sample():
     print(result)
 
 
+def FilterMethod_PearsonCorrelationCoefficient_Sample():
+    from featureSelection.FilterMethods import PearsonCorrelationCoefficient
+
+
+    from sklearn.datasets import load_iris
+    from sklearn.model_selection import train_test_split
+    # Modules
+
+    # Load the iris dataset
+    iris = load_iris()
+
+    # Split the dataset into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(
+        iris.data, iris.target, test_size=0.2)
+
+    result = PearsonCorrelationCoefficient.feature_selection(X_train, 0.5)
+
+    print(result)
+
+
 # GA_Feature_Selection_Sample()
-SA_Feature_Selection_Sample()
+# SA_Feature_Selection_Sample()
+FilterMethod_PearsonCorrelationCoefficient_Sample()
