@@ -12,42 +12,129 @@ JOB_TITLE_SEARCH_WORDS = [
     'IT',
     'IOS',
     'UI-UX',
-    'Designer']
+    'Designer'
+]
 
-SELECTED_COLS = [
-    'benefits.benefitRatingDecimal',  # Num Employee rating on company benefits TODO: eliminate outliers
-    'gaTrackerData.empSize',  # Categorical Company size TODO: calculate unique values and ONE-HOT
-    'gaTrackerData.industry',  # Categorical Company Industry TODO: calculate unique values and ONE-HOT
-    'header.sponsored',  # Boolean Whether the job is sponsored TODO: convert to binary: sponsored/not sponsored
+SELECTED_COLS_ID = [
+    'benefits.highlights',  # Benefits highlights table id
+    'reviews',  # Reviews table id
+    'salary.salaries',  # Salaries table id
+]
+
+SELECTED_COLS_MAIN = [
     'job.description',  # Job description TODO: calculate word count and TF-IDF on most 10~20 frequent words
-    'map.location',  # Job location TODO: convert to binary: US/Non-US
-    'overview.type',  # Company type TODO: calculate unique values and ONE-HOT
-    'rating.ceoApproval',  # CEO approval rating TODO: eliminate outliers
-    'rating.recommendToFriend',  # Recommend to friend rating TODO: eliminate outliers
-    'rating.starRating',  # Overall rating TODO: eliminate outliers
+    'header.sponsored',  # Boolean Whether the job is sponsored
+    'map.location',  # Job location
+    'gaTrackerData.empSize',  # Categorical Company size
+    'gaTrackerData.industry',  # Categorical Company Industry
+    'overview.type',  # Company type
+    'benefits.benefitRatingDecimal',  # Num Employee rating on company benefits
+    'rating.ceoApproval',  # CEO approval rating
+    'rating.recommendToFriend',  # Recommend to friend rating
+    'rating.starRating',  # Overall rating
+]
 
-    'benefits.highlights.val.name',  # Employee benefits TODO: - In glassdoor_benefits_highlights.csv
-    #                         - Calculate unique values and ONE-HOT
+SELECTED_COLS_BENI = [
+    'id',
+    'benefits.highlights.val.name'  # Employee benefits
+]
 
-    'reviews.val.cons',  # Employee reviews: cons TODO: - In glassdoor_reviews.csv
-    #                              - Calculate sentiment score
-    'reviews.val.pros',  # Employee reviews: pros TODO: - In glassdoor_reviews.csv
-    #                              - Calculate sentiment score
+SELECTED_COLS_REVIEW = [
+    'id',
+    'reviews.val.cons',  # Employee reviews: cons
+    'reviews.val.pros',  # Employee reviews: pros
+]
 
+SELECTED_COLS_SALARY = [
+    'id',
     'salary.salaries.val.salaryPercentileMap.payPercentile10',
     'salary.salaries.val.salaryPercentileMap.payPercentile90',
     'salary.salaries.val.payPeriod',
-    'salary.salaries.val.jobTitle']
+    'salary.salaries.val.jobTitle'
+]
 
-OUTLIER_COLS = [
+OUTLIER_COLS_MAIN = [
     'benefits.benefitRatingDecimal',
     'rating.ceoApproval',
     'rating.recommendToFriend',
-    'rating.starRating']
+    'rating.starRating'
+]
 
 DATA_FILE_PATHS = [
     '../data/glassdoor.csv',
     '../data/glassdoor_benefits_highlights.csv',
     '../data/glassdoor_reviews.csv',
     '../data/glassdoor_salary_salaries.csv'
+]
+
+CLEAN_DATA_PATH = '../data/glassdoor_clean_data.csv'
+
+US_STATES = [
+    'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME',
+    'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA',
+    'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+]
+
+TECH_STACK = [
+    "java",
+    "python",
+    "javascript",
+    "sql",
+    "c++",
+    "aws",
+    "amazon web services",
+    "git",
+    "docker",
+    "kubernetes",
+    "react",
+    "node.js",
+    "html",
+    "css",
+    "agile",
+    "linux",
+    "devops",
+    "restful",
+    ".net",
+    "c#",
+    "php",
+    "ruby",
+    "apache",
+    "spark",
+    "typescript",
+    "flask",
+    "django",
+    "tensorflow",
+    "spring",
+    "azure",
+    "redux",
+    "vue.js",
+    "angular",
+    "bash",
+    "mongodb",
+    "hadoop",
+    "pytorch",
+    "react",
+    "firebase",
+    "unity",
+    "jenkins",
+    "oauth",
+    "mysql",
+    "postgresql",
+    "apache kafka",
+    "ansible",
+    "elasticsearch",
+    "golang",
+    "ionic",
+    "swift",
+    "objective-c",
+    "kotlin",
+    "xamarin",
+    "express.js",
+    "graphql",
+    "selenium",
+    "jira",
+    "apache cassandra",
+    "rabbitmq",
+    "chef",
+    "puppet"
 ]
