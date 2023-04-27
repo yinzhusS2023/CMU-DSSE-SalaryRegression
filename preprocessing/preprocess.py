@@ -2,28 +2,7 @@ from logging import *
 
 import pandas as pd
 
-columns = ['gaTrackerData.empName',
-           'gaTrackerData.empSize',
-           'gaTrackerData.industry',
-           'gaTrackerData.jobTitle',
-           'gaTrackerData.location',
-           'header.employerName',
-           'header.jobTitle',
-           'header.organic',
-           'header.rating',
-           'job.description',
-           'overview.industry',
-           'overview.revenue',
-           'overview.sector',
-           'overview.size',
-           'overview.type',
-           'overview.description',
-           'rating.ceo.ratingsCount',
-           'rating.ceoApproval',
-           'rating.recommendToFriend',
-           'rating.starRating',
-           'salary.country.currency.currencyCode',
-           'salary.salaries']
+label = 'salary.salaries'
 
 
 class Preprocessor:
