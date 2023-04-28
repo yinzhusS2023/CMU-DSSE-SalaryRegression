@@ -160,6 +160,9 @@ class DataLoader:
         self.clean_data = self.clean_data.drop(columns=dataloader_config.SELECTED_COLS_ID)
         self.clean_data = self.clean_data.drop(columns=['id'])
         self.clean_data.dropna(axis=0, how='any', inplace=True)
+        write_unique_values_to_file(self.clean_data,
+                                    'title',
+                                    '../data/job_title_counts.txt')
 
 
 if __name__ == '__main__':
