@@ -1,0 +1,189 @@
+analyst programmer (senior software engineer): 1
+applications developer: 1
+applications developer analyst: 1
+applications developer associate: 1
+applications development intermediate programmer analyst: 4
+applications development senior programmer analyst: 4
+applications development senior programmer analyst (c12): 5
+applications development specialist: 1
+applications engineer: 4
+applications operations engineer: 1
+applications support analyst: 4
+applications support engineer: 6
+applications support intermediate analyst: 1
+apprentice software engineer: 1
+assistant it manager: 2
+assistant vice president - database architect: 1
+associate director - it: 240
+associate software engineer: 16
+associate systems engineer: 1
+authorized officer, software engineer: 3
+business systems analyst: 19
+cloud infrastructure engineer: 2
+consulting systems engineer: 113
+designer: 4
+embedded software engineer: 2
+embedded systems software engineer: 1
+engineered systems deployment engineer: 1
+full stack software engineer: 3
+graduate software developer: 2
+graduate software engineer: 59
+graduate software/systems engineer: 2
+graphic software engineer: 5
+interior designer: 15
+it applications support analyst: 1
+it audit senior manager: 5
+it business analyst: 37
+it business analyst/group technology: 2
+it consultant: 1
+it consultant data science: 2
+it consultant/project manager: 18
+it manager: 8
+it problem manager: 1
+it project engineer: 1
+it project intermed analyst: 1
+it project manager: 388
+it risk and assurance manager: 6
+it security analyst: 2
+it senior business analyst: 8
+it senior project manager: 8
+it service delivery manager: 5
+it services manager: 1
+it software engineer: 1
+it software engineer/group technology: 1
+it support analyst: 2
+it support engineer: 7
+it support engineer ii: 1
+it systems engineer: 1
+it technical support engineer: 7
+junior software engineer: 8
+lead software development engineer: 2
+lead software engineer: 267
+lead systems architect: 23
+lead systems engineer: 21
+mainframe systems analyst/programmer: 2
+manager - it project manager: 2
+manager - it risk and assurance: 4
+manager in it advisory: 1
+oracle applications technical consultant: 1
+principal software engineer: 155
+principal systems engineer: 1
+product designer: 83
+programmer test manager: 1
+project manager, director, equities it: 2
+r&d software engineer: 1
+regional it manager: 1
+reliability, maintainability and systems safety engineer: 4
+senior applications developer: 1
+senior applications development programmer analyst: 5
+senior applications engineer: 3
+senior applications support analyst: 1
+senior associate is business systems analyst: 1
+senior associate systems engineer: 2
+senior business systems analyst: 1
+senior c++ software engineer: 5
+senior consulting software engineer: 2
+senior embedded software engineer: 1
+senior it business analyst: 27
+senior it consultant: 1
+senior it field support engineer: 1
+senior it project manager: 1
+senior java software engineer: 1
+senior java/jee software engineer: 2
+senior manager - software development: 7
+senior manager software development: 7
+senior principal applications engineer: 1
+senior principal software engineer: 8
+senior principal solution consultant: 1
+senior qa/test engineer: 3
+senior software consultant: 1
+senior software dev engineer: 2
+senior software developer: 316
+senior software developer, assistant vice president: 1
+senior software development engineer: 50
+senior software development engineer iii: 18
+senior software development manager: 2
+senior software engineer: 1719
+senior software engineer in test: 1
+senior software engineer/architect: 1
+senior software engineering manager: 1
+senior software quality engineer: 1
+senior software support engineer: 2
+senior software test engineer: 8
+senior solutions designer: 19
+senior staff applications engineer: 1
+senior staff software engineer: 1
+senior systems architect: 23
+senior systems engineer: 13
+senior systems engineer,: 1
+senior systems engineer, infosys: 1
+senior systems software engineer: 2
+senior systems support engineer: 3
+senior test analyst: 2
+senior test automation engineer: 2
+senior test automation engineer/software development engineer in test: 5
+senior test engineer: 4
+senior test manager: 1
+software dev engineer ii (applications developer): 1
+software developer: 223
+software developer/staff consultant: 1
+software development engineer: 1848
+software development engineer i: 40
+software development engineer ii: 43
+software development engineer iii/senior engineer: 18
+software development engineer in test: 4
+software development engineer-ii: 2
+software development manager: 18
+software development manager ii: 9
+software development senior analyst: 1
+software development team & project manager: 10
+software engineer: 2950
+software engineer ( senior architect): 1
+software engineer associate: 3
+software engineer i: 10
+software engineer ii: 21
+software engineer iii: 4
+software engineer iv: 1
+software engineer se1: 1
+software engineer se2: 1
+software engineer(): 35
+software engineer, level 7: 1
+software engineer/analyst: 8
+software engineer/principal technical support engineer: 1
+software engineering analyst: 1
+software engineering manager: 9
+software engineering senior analyst: 1
+software engineering sr analyst: 1
+software engineering team lead: 2
+software quality assurance engineer/tester: 1
+software support engineer: 1
+software test analyst: 2
+software test automation engineer: 1
+software test engineer: 23
+solution architect: 10
+solution development representative: 12
+solutions architect: 414
+sqa engineer - technical test lead: 3
+sr software engineer: 1
+sr. software engineer: 2
+staff software engineer: 2
+staff software engineer (band 7 software developer): 3
+staff software systems test engineer: 1
+systems analyst: 2
+systems engineer: 398
+systems engineer associate: 4
+systems engineer ii: 1
+systems engineer senior: 17
+systems engineer/pre sales engineer: 1
+systems engineer/scientist: 1
+systems software engineer: 3
+systems support engineer: 1
+technical architect: 10
+technical architect analyst: 1
+test analyst: 46
+test consultant: 8
+test engineer: 2
+test environment manager: 1
+user experience designer: 51
+vice president senior software engineer: 2
+web applications developer: 1
