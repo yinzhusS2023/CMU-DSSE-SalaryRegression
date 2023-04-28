@@ -1,18 +1,14 @@
 JOB_TITLE_SEARCH_WORDS = [
     'Software',
     'Systems',
-    'Project',
-    'Principal',
     'Applications',
     'Cloud',
     'Solution',
     'Architect',
     'Algorithm',
     'Test',
-    'IT',
     'IOS',
     'UI-UX',
-    'Designer'
 ]
 
 SELECTED_COLS_ID = [
@@ -22,7 +18,7 @@ SELECTED_COLS_ID = [
 ]
 
 SELECTED_COLS_MAIN = [
-    'job.description',  # Job description TODO: calculate word count and TF-IDF on most 10~20 frequent words
+    'job.description',  # Job description
     'header.sponsored',  # Boolean Whether the job is sponsored
     'map.location',  # Job location
     'gaTrackerData.empSize',  # Categorical Company size
