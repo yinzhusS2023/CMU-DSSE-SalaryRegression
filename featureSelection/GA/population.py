@@ -29,7 +29,7 @@ class Population:
         self.childSize = X.shape[1]
         self.best_individual = None
         self.finished = False
-        self.max_fitness = 0.0
+        self.max_fitness = float('-inf')
         self.average_fitness = 0.0
         self.mating_pool = []
 
@@ -77,7 +77,8 @@ class Population:
 
             offspring = partner_a.crossover(partner_b)
             offspring.mutate(self.mutation_rate)
-            offspring.calculate_fitness(self.X, self.Y, self.classifier, self.validation_function)
+            offspring.calculate_fitness(
+                self.X, self.Y, self.classifier, self.validation_function)
 
             self.average_fitness += offspring.fitness
             new_population.append(offspring)
@@ -96,7 +97,7 @@ class Population:
 
     # Evaluate the population
     def evaluate(self):
-        best_fitness = 0.0
+        best_fitness = float('-inf')
         for individual in self.population:
             if individual.fitness > best_fitness:
                 best_fitness = individual.fitness

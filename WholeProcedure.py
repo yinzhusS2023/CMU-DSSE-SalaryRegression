@@ -22,7 +22,7 @@ def LoadDataPoints():
         return False, None
 
 
-def validation_function(X, y, classifier, metric='R2'):
+def validation_function(X, y, classifier, metric='MSE'):
     train_success, train_result = ModelTrainer.train_by_grid_search(
         X, y, classifier)
     if not train_success:
@@ -40,11 +40,12 @@ def validation_function(X, y, classifier, metric='R2'):
     if not metric_success:
         print("Error[in validation function]: validation failed")
         return False, 0
-    return True, metric_result[metric]
+    return True, -metric_result[metric]
 
 
 def threshold_function(fitness):
-    return (1-abs(fitness)) < 0.1
+    print("IN Threshold function: %s" % fitness)
+    return abs(fitness) <= 40000
 
 
 valid_algo = {

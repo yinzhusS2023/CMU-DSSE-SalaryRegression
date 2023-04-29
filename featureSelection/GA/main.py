@@ -46,6 +46,7 @@ def genetic_algorithm(
             population.evaluate()
             population.print_population_status()
             iteration_count += 1
+
         time_used = time()-GA_start_time
         return True, {'X': population.best_individual.get_selected_feature(X),
                       'mask': population.best_individual.genes,
