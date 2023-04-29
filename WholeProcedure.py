@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from featureSelection.FilterMethods import AnovaF, ChiSquare, PearsonCorrelationCoefficient
 from featureSelection.GA.main import genetic_algorithm
@@ -95,7 +96,7 @@ def main():
     X = np.asarray(X)
 
     feature_selection_success, feature_selection_result = FeatureSelectionAdapter(
-        X, y, 'GA', 'DecisionTreeRegressor')
+        X, y, 'GA', 'GradientBoostingRegressor')
     if not feature_selection_success:
         return
     #  result_obj = {
