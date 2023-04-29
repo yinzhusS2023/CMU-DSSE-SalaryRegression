@@ -1,3 +1,7 @@
+import re
+
+import pandas as pd
+
 from config import dataloader_config
 from sentianalysis import SentimentAnalyzer
 from utils.dataframe import *
@@ -11,6 +15,7 @@ def _search_title(data: pd.DataFrame):
     data = data.copy()
     data['title'] = data['salary.salaries.val.jobTitle'].str.lower()
     data['title'] = data['title'].fillna('')
+    data.drop(columns=['salary.salaries.val.jobTitle'], inplace=True)
     data = data[data['title'].str.contains(search_words)]
     return data
 
@@ -46,10 +51,11 @@ def _count_tech_words(data: pd.DataFrame):
     data['description'] = data['job.description'].str.lower()
     data['description'] = data['description'].fillna('')
     for word in tech_words:
+        word_title = 'description_' + word + '_count'
         word_regex = word.replace('+', '\+')
         word_regex = word_regex.replace('.', '\.')
         word_regex = r'\b' + word_regex + r'\b'
-        data[word] = data['description'].str.count(word_regex)
+        data[word_title] = data['description'].str.count(word_regex)
     data = data.drop(columns=['job.description', 'description'])
     return data
 
@@ -86,6 +92,25 @@ def _type(text: str):
         return 'Other'
     else:
         return text
+
+
+def _get_level(title: str):
+    # get the level of the job
+    for level, descriptions in dataloader_config.JOB_LEVEL_MAP.items():
+        for description in descriptions:
+            # use regex to match whole word in the title
+            if re.search(r'\b' + description + r'\b', title.lower()):
+                return level
+    return 2
+
+
+def _get_category(title: str):
+    # get the category of the job
+    for category, descriptions in dataloader_config.JOB_CATEGORY_MAP.items():
+        for description in descriptions:
+            if description in title.lower():
+                return category
+    return 'Other'
 
 
 class DataLoader:
@@ -129,8 +154,12 @@ class DataLoader:
         self.salary_data = self.salary_data.loc[:, dataloader_config.SELECTED_COLS_SALARY]
         self.salary_data = self.salary_data.dropna(axis=0, how='any')
         self.salary_data = _search_title(self.salary_data)
+        self.salary_data['jobLevel'] = self.salary_data['title'].apply(lambda x: _get_level(x))
+        self.salary_data['jobCategory'] = self.salary_data['title'].apply(lambda x: _get_category(x))
+        self.salary_data.drop('title', axis=1, inplace=True)
         self.salary_data = _calib_salary(self.salary_data)
         self.salary_data = _eliminate_outlier(self.salary_data, 'salary')
+        self.salary_data = pd.get_dummies(self.salary_data, ['jobCategory'])
         print(f'After cleaning, salary data shape: {self.salary_data.shape}')
 
     def _clean_main(self):
@@ -160,9 +189,6 @@ class DataLoader:
         self.clean_data = self.clean_data.drop(columns=dataloader_config.SELECTED_COLS_ID)
         self.clean_data = self.clean_data.drop(columns=['id'])
         self.clean_data.dropna(axis=0, how='any', inplace=True)
-        write_unique_values_to_file(self.clean_data,
-                                    'title',
-                                    '../data/job_title_counts.txt')
 
 
 if __name__ == '__main__':
