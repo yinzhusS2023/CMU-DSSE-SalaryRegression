@@ -1,4 +1,8 @@
 import random
+from IO.ModelIO import ModelIO
+from IO.ObjectWriter import ObjectManager
+
+from trainer import ModelTrainer
 from .individual import Individual
 
 
@@ -106,6 +110,23 @@ class Population:
 
         if self.threshold_function(best_fitness):
             self.finished = True
+
+        train_success, train_result = ModelTrainer.train_by_grid_search(
+            self.best_individual.get_selected_feature(self.X), self.Y, self.classifier)
+        if not train_success:
+            print(
+                "Error[in validation function]: training failed in model saving")
+        # {
+        #     "model_name": model_name,
+        #     "training_time": training_time,
+        #     "best_params": grid_search.best_params_,
+        #     "best_model": grid_search.best_estimator_
+        # }
+        model = train_result['best_model']
+        ModelIO.save_model(model,
+                           "result/GA/generation_{}_fit_{}.model".format(self.generation, self.best_individual.fitness))
+        ObjectManager.write_object(
+            "result/GA/generation_{}_fit_{}.genes".format(self.generation, self.best_individual.fitness), self.best_individual.genes,)
 
     def print_population_status(self):
         print("\nGeneration: " + str(self.generation))
