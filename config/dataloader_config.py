@@ -134,3 +134,20 @@ TECH_STACK = [
     "chef",
     "puppet"
 ]
+
+JOB_LEVEL_MAP = {
+    1: ['i', 'graduate', 'apprentice', 'junior', 'se1'],
+    2: ['ii', 'se2'],
+    3: ['iii', 'senior', 'sr', 'advisory'],
+    4: ['iv', 'advanced', 'staff', 'chief'],
+    5: ['v', 'lead', 'principal', 'director', 'president', 'level 7']
+}
+
+JOB_CATEGORY_MAP = {
+    'Development': ['develop', 'software'],
+    'Solution': ['solution'],
+    'Test': ['test'],
+    'Support': ['support'],
+    'System': ['system'],
+    'IT Director': ['associate director - it']
+}
