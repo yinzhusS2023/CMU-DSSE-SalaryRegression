@@ -75,14 +75,14 @@ def FeatureSelectionAdapter(X_train, y_train, method, algorithm='LinearRegressio
             threshold_function=threshold_function,
         )
     elif method == 'PCC':
-        return PearsonCorrelationCoefficient.feature_selection(X_train, 0.5)
+        return PearsonCorrelationCoefficient.feature_selection(X_train, 0.25)
     elif method == 'C2':
-        return ChiSquare.feature_selection(X_train, y_train, 2)
+        return ChiSquare.feature_selection(X_train, y_train, 50)
     elif method == 'AF':
-        return AnovaF.feature_selection(X_train, y_train, 2)
+        return AnovaF.feature_selection(X_train, y_train, 50)
     elif method == 'RFE':
         return RecursiveFeatureElimination.feature_seleciton(
-            X_train, y_train, 2, 10)
+            X_train, y_train, 40, 10)
     return False, None
 
 
@@ -94,7 +94,7 @@ def main():
     X = np.asarray(X)
 
     feature_selection_success, feature_selection_result = FeatureSelectionAdapter(
-        X, y, 'GA', 'LinearRegression')
+        X, y, 'GA', 'BayesianRidge')
     if not feature_selection_success:
         return
     #  result_obj = {

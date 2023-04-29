@@ -24,40 +24,40 @@ class ModelTrainer:
 
     MODEL_PARAMS = {
         "LinearRegression": {
-            'fit_intercept': [True, False],
-            'copy_X': [True, False],
-            'positive': [True, False],
+            # 'fit_intercept': [True, False],
+            # 'copy_X': [True, False],
+            # 'positive': [True, False],
         },
         "BayesianRidge": {
-            'alpha_1': [1e-6, 1e-5, 1e-4, 1e-3],
-            'alpha_2': [1e-6, 1e-5, 1e-4, 1e-3],
-            'lambda_1': [1e-6, 1e-5, 1e-4, 1e-3],
-            'lambda_2': [1e-6, 1e-5, 1e-4, 1e-3],
+            # 'alpha_1': [1e-6, 1e-5, 1e-4, 1e-3],
+            # 'alpha_2': [1e-6, 1e-5, 1e-4, 1e-3],
+            # 'lambda_1': [1e-6, 1e-5, 1e-4, 1e-3],
+            # 'lambda_2': [1e-6, 1e-5, 1e-4, 1e-3],
         },
         "DecisionTreeRegressor": {
-            'max_depth': [2, 4, 6, 8, 10],
-            'min_samples_split': [2, 4, 6, 8, 10],
-            'min_samples_leaf': [1, 2, 3, 4, 5],
-            'max_features': ['auto', 'sqrt', 'log2']
+            # 'max_depth': [2, 4, 6, 8, 10],
+            # 'min_samples_split': [2, 4, 6, 8, 10],
+            # 'min_samples_leaf': [1, 2, 3, 4, 5],
+            # 'max_features': ['auto', 'sqrt', 'log2']
         },
         "MLPRegressor": {
-            'hidden_layer_sizes': [(10,), (20,), (10, 20,), (20, 10,)],
-            'activation': ['identity', 'logistic', 'tanh', 'relu'],
-            'solver': ['lbfgs', 'sgd', 'adam'],
-            'alpha': [0.0001, 0.001, 0.01],
-            'learning_rate': ['constant', 'invscaling', 'adaptive']
+            # 'hidden_layer_sizes': [(10,), (20,), (10, 20,), (20, 10,)],
+            # 'activation': ['identity', 'logistic', 'tanh', 'relu'],
+            # 'solver': ['lbfgs', 'sgd', 'adam'],
+            # 'alpha': [0.0001, 0.001, 0.01],
+            # 'learning_rate': ['constant', 'invscaling', 'adaptive']
         },
         "KNeighborsRegressor": {
-            'n_neighbors': [3, 5, 7, 9],
-            'weights': ['uniform', 'distance'],
-            'p': [1, 2]
+            # 'n_neighbors': [3, 5, 7, 9],
+            # 'weights': ['uniform', 'distance'],
+            # 'p': [1, 2]
         }, "GradientBoostingRegressor": {
-            'n_estimators': [50, 100, 200],
-            'learning_rate': [0.01, 0.1, 1],
-            'max_depth': [3, 5, 7],
-            'min_samples_split': [2, 5, 10],
-            'min_samples_leaf': [1, 2, 4],
-            'max_features': ['auto', 'sqrt', 'log2']
+            # 'n_estimators': [50, 100, 200],
+            # 'learning_rate': [0.01, 0.1, 1],
+            # 'max_depth': [3, 5, 7],
+            # 'min_samples_split': [2, 5, 10],
+            # 'min_samples_leaf': [1, 2, 4],
+            # 'max_features': ['auto', 'sqrt', 'log2']
         }
     }
 

@@ -40,6 +40,7 @@ def genetic_algorithm(
         population.create_initial_population(population_size)
         iteration_count = 0
         while not population.finished and iteration_count < max_iterations:
+            print("iteration: ", iteration_count)
             population.natural_selection()
             population.generate_new_population()
             population.evaluate()
