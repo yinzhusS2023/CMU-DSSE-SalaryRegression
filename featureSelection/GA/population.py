@@ -1,4 +1,8 @@
 import random
+from IO.ModelIO import ModelIO
+from IO.ObjectWriter import ObjectManager
+
+from trainer import ModelTrainer
 from .individual import Individual
 
 
@@ -29,7 +33,7 @@ class Population:
         self.childSize = X.shape[1]
         self.best_individual = None
         self.finished = False
-        self.max_fitness = 0.0
+        self.max_fitness = float('-inf')
         self.average_fitness = 0.0
         self.mating_pool = []
 
@@ -77,7 +81,8 @@ class Population:
 
             offspring = partner_a.crossover(partner_b)
             offspring.mutate(self.mutation_rate)
-            offspring.calculate_fitness(self.X, self.Y, self.classifier, self.validation_function)
+            offspring.calculate_fitness(
+                self.X, self.Y, self.classifier, self.validation_function)
 
             self.average_fitness += offspring.fitness
             new_population.append(offspring)
@@ -96,7 +101,7 @@ class Population:
 
     # Evaluate the population
     def evaluate(self):
-        best_fitness = 0.0
+        best_fitness = float('-inf')
         for individual in self.population:
             if individual.fitness > best_fitness:
                 best_fitness = individual.fitness
@@ -105,6 +110,23 @@ class Population:
 
         if self.threshold_function(best_fitness):
             self.finished = True
+
+        train_success, train_result = ModelTrainer.train_by_grid_search(
+            self.best_individual.get_selected_feature(self.X), self.Y, self.classifier)
+        if not train_success:
+            print(
+                "Error[in validation function]: training failed in model saving")
+        # {
+        #     "model_name": model_name,
+        #     "training_time": training_time,
+        #     "best_params": grid_search.best_params_,
+        #     "best_model": grid_search.best_estimator_
+        # }
+        model = train_result['best_model']
+        ModelIO.save_model(model,
+                           "result/GA/generation_{}_fit_{}.model".format(self.generation, self.best_individual.fitness))
+        ObjectManager.write_object(
+            "result/GA/generation_{}_fit_{}.genes".format(self.generation, self.best_individual.fitness), self.best_individual.genes,)
 
     def print_population_status(self):
         print("\nGeneration: " + str(self.generation))

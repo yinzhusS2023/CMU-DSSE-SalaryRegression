@@ -14,7 +14,7 @@ def genetic_algorithm(
         # Optional Parameters
         population_size=100,
         mutation_rate=0.03,
-        max_iterations=1000,
+        max_iterations=100,
         selection_size=20,
         cross_over_rate=0.8):
 
@@ -40,11 +40,13 @@ def genetic_algorithm(
         population.create_initial_population(population_size)
         iteration_count = 0
         while not population.finished and iteration_count < max_iterations:
+            print("iteration: ", iteration_count)
             population.natural_selection()
             population.generate_new_population()
             population.evaluate()
             population.print_population_status()
             iteration_count += 1
+
         time_used = time()-GA_start_time
         return True, {'X': population.best_individual.get_selected_feature(X),
                       'mask': population.best_individual.genes,

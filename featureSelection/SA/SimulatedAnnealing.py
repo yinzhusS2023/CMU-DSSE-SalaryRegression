@@ -1,6 +1,10 @@
 import random
 import math
 from time import time
+from IO.ModelIO import ModelIO
+from IO.ObjectWriter import ObjectManager
+
+from trainer import ModelTrainer
 
 
 class SimulatedAnnealing:
@@ -53,7 +57,7 @@ class SimulatedAnnealing:
                 X.shape[1])
 
             current_score = SimulatedAnnealing.objective(
-                        X, y, current_state, classifier, validation_function)
+                X, y, current_state, classifier, validation_function)
             best_state = current_state
             best_score = current_score
 
@@ -91,8 +95,8 @@ class SimulatedAnnealing:
                 # print("Average Score: {}".format(average_score))
                 # print(SimulatedAnnealing.current_state_to_str(current_state))
 
-                # print("Iter {}: temperature:{}  best_score: {}, best_state: {}".format(
-                #     this_iteration, temperature, best_score, SimulatedAnnealing.current_state_to_str(best_state)))
+                print("Iter {}: temperature:{}  best_score: {}, best_state: {}".format(
+                    this_iteration, temperature, best_score, SimulatedAnnealing.current_state_to_str(best_state)))
 
                 if threshold_function(best_score):
                     break
@@ -100,6 +104,23 @@ class SimulatedAnnealing:
                 # Cool the temperature
                 temperature *= cooling_rate
                 this_iteration += 1
+
+                train_success, train_result = ModelTrainer.train_by_grid_search(
+                    X[:, best_state], y, classifier)
+                if not train_success:
+                    print(
+                        "Error[in validation function]: training failed in model saving")
+                # {
+                #     "model_name": model_name,
+                #     "training_time": training_time,
+                #     "best_params": grid_search.best_params_,
+                #     "best_model": grid_search.best_estimator_
+                # }
+                model = train_result['best_model']
+                ModelIO.save_model(model,
+                                   "result/SA/generation_{}_fit_{}.model".format(this_iteration, best_score))
+                ObjectManager.write_object(
+                    "result/SA/generation_{}_fit_{}.genes".format(this_iteration, best_score), best_state)
 
             total_time = time() - start_time
 

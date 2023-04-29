@@ -18,7 +18,7 @@ class ModelValidator:
                 'MSE': mean_squared_error(real_y, predicted_y),
                 'MAE': mean_absolute_error(real_y, predicted_y),
             }
-            print(gm)
+            # print(gm)
             return True, gm
         except Exception as e:
             print("Get general metrics failed: " + str(e))
