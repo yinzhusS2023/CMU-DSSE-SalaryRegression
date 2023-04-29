@@ -95,7 +95,7 @@ def main():
     X = np.asarray(X)
 
     feature_selection_success, feature_selection_result = FeatureSelectionAdapter(
-        X, y, 'GA', 'LinearRegression')
+        X, y, 'GA', 'DecisionTreeRegressor')
     if not feature_selection_success:
         return
     #  result_obj = {
