@@ -14,7 +14,7 @@ def genetic_algorithm(
         # Optional Parameters
         population_size=100,
         mutation_rate=0.03,
-        max_iterations=1000,
+        max_iterations=100,
         selection_size=20,
         cross_over_rate=0.8):
 
