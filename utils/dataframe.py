@@ -16,7 +16,7 @@ def write_unique_values_to_file(data: pd.DataFrame, column: str, file_name: str)
     unique_values, value_counts = np.unique(values_np, return_counts=True)
     with open(file_name, 'w') as f:
         for value, count in zip(unique_values, value_counts):
-            f.write(value + '\t' + str(count) + '\n')
+            f.write(str(value) + '\t' + str(count) + '\n')
 
 
 def plot_hist(data: pd.DataFrame, column: str, kde: bool, title: str, x_label: str, y_label: str, file_name: str):
