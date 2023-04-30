@@ -137,6 +137,9 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
         if not load_success:
             return
         X, y = load_result
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2)
+
         classifier_success, classifier = ModelIO.load_model(classifier_path)
         if not classifier_success:
             return
@@ -149,7 +152,7 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
         print(mask)
 
         validate_success, validate_result = ModelValidator.get_general_metrics(
-            np.asarray(X)[:, mask], y, classifier)
+            np.asarray(X_test)[:, mask], y_test, classifier)
         if not validate_success:
             return
         print(validate_result)
@@ -160,11 +163,11 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
 
 
 if __name__ == "__main__":
-    main()
+    # main()
 
-    # #            Data Path
-    # validateResult(r"data\glassdoor_clean_data.csv",
-    #                # Classifier Path
-    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
-    #                # Mask Path
-    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
+    #            Data Path
+    validateResult(r"data\glassdoor_clean_data.csv",
+                   # Classifier Path
+                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
+                   # Mask Path
+                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
