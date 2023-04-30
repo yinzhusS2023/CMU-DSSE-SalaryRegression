@@ -196,13 +196,13 @@ def get_base_result(data_path, model_name):
 #     "GradientBoostingRegressor": GradientBoostingRegressor
 # }
 if __name__ == "__main__":
-    main("SA", "DecisionTreeRegressor")
+    # main("SA", "GradientBoostingRegressor")
 
     # get_base_result(r"data\glassdoor_clean_data.csv", "DecisionTreeRegressor")
 
-    # #            Data Path
-    # validateResult(r"data\glassdoor_clean_data.csv",
-    #                # Classifier Path
-    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
-    #                # Mask Path
-    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
+    #            Data Path
+    validateResult(r"data\glassdoor_clean_data.csv",
+                   # Classifier Path
+                   r"result\SA\generation_41_fit_-41629919.79659961.model",
+                   # Mask Path
+                   r"result\SA\generation_41_fit_-41629919.79659961.genes")
