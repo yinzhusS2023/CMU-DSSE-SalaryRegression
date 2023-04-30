@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+from IO.ModelIO import ModelIO
+from IO.ObjectWriter import ObjectManager
 from featureSelection.FilterMethods import AnovaF, ChiSquare, PearsonCorrelationCoefficient
 from featureSelection.GA.main import genetic_algorithm
 from featureSelection.RecursiveFeatureElimination import RecursiveFeatureElimination
@@ -12,9 +14,9 @@ import numpy as np
 from trainer import ModelTrainer
 
 
-def LoadDataPoints():
+def LoadDataPoints(path='data\glassdoor_clean_data.csv'):
     try:
-        df = pd.read_csv('data\glassdoor_clean_data.csv')
+        df = pd.read_csv(path)
         X = df.drop('salary', axis=1)
         y = df['salary']
         return True, (X, y)
@@ -130,5 +132,40 @@ def main():
     print(validate_result)
 
 
+def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
+    try:
+        load_success, load_result = LoadDataPoints(data_path)
+        if not load_success:
+            return
+        X, y = load_result
+        classifier_success, classifier = ModelIO.load_model(classifier_path)
+        if not classifier_success:
+            return
+        print("Classifier:")
+        print(classifier)
+        mask_success, mask = ObjectManager.read_object(mask_path)
+        if not mask_success:
+            return
+        print("Mask:")
+        print(mask)
+
+        validate_success, validate_result = ModelValidator.get_general_metrics(
+            np.asarray(X)[:, mask], y, classifier)
+        if not validate_success:
+            return
+        print(validate_result)
+
+    except Exception as e:
+        print("Result validation failed: %s" % e)
+        return
+
+
 if __name__ == "__main__":
-    main()
+    # main()
+
+    # #            Data Path
+    validateResult(r"data\glassdoor_clean_data.csv",
+                   # Classifier Path
+                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
+                   # Mask Path
+                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
