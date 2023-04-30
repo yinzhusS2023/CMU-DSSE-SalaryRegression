@@ -1,5 +1,6 @@
-import os
 import pandas as pd
+from IO.ModelIO import ModelIO
+from IO.ObjectWriter import ObjectManager
 from featureSelection.FilterMethods import AnovaF, ChiSquare, PearsonCorrelationCoefficient
 from featureSelection.GA.main import genetic_algorithm
 from featureSelection.RecursiveFeatureElimination import RecursiveFeatureElimination
@@ -12,9 +13,9 @@ import numpy as np
 from trainer import ModelTrainer
 
 
-def LoadDataPoints():
+def LoadDataPoints(path='data\glassdoor_clean_data.csv'):
     try:
-        df = pd.read_csv('data\glassdoor_clean_data.csv')
+        df = pd.read_csv(path)
         X = df.drop('salary', axis=1)
         y = df['salary']
         return True, (X, y)
@@ -49,16 +50,6 @@ def threshold_function(fitness):
     return abs(fitness) <= 40000
 
 
-valid_algo = {
-    'GA': 'GA',
-    'SA': 'SA',
-    'PCC': 'PCC',
-    'C2': 'C2',
-    'AF': 'AF',
-    'RFE': 'RFE',
-}
-
-
 def FeatureSelectionAdapter(X_train, y_train, method, algorithm='LinearRegression'):
     if method == 'GA':
         return genetic_algorithm(
@@ -88,7 +79,7 @@ def FeatureSelectionAdapter(X_train, y_train, method, algorithm='LinearRegressio
     return False, None
 
 
-def main():
+def main(feature_selection_method="GA", ML_algorithm="DecisionTreeRegressor"):
     load_success, loaded_data = LoadDataPoints()
     if not load_success:
         return
@@ -96,7 +87,7 @@ def main():
     X = np.asarray(X)
 
     feature_selection_success, feature_selection_result = FeatureSelectionAdapter(
-        X, y, 'GA', 'GradientBoostingRegressor')
+        X, y, feature_selection_method, ML_algorithm)
     if not feature_selection_success:
         return
     #  result_obj = {
@@ -113,7 +104,7 @@ def main():
         X, y, test_size=0.2)
 
     train_success, train_result = ModelTrainer.train_by_grid_search(
-        X_train, y_train)
+        X_train, y_train, model_name=ML_algorithm)
     if not train_success:
         return
     #     result_obj = {
@@ -130,5 +121,88 @@ def main():
     print(validate_result)
 
 
+def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
+    try:
+        load_success, load_result = LoadDataPoints(data_path)
+        if not load_success:
+            return
+        X, y = load_result
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2)
+
+        classifier_success, classifier = ModelIO.load_model(classifier_path)
+        if not classifier_success:
+            return
+        print("Classifier:")
+        print(classifier)
+        mask_success, mask = ObjectManager.read_object(mask_path)
+        if not mask_success:
+            return
+        print("Mask:")
+        print(mask)
+
+        validate_success, validate_result = ModelValidator.get_general_metrics(
+            np.asarray(X_test)[:, mask], y_test, classifier)
+        if not validate_success:
+            return
+        print(validate_result)
+
+    except Exception as e:
+        print("Result validation failed: %s" % e)
+        return
+
+
+def get_base_result(data_path, model_name):
+    try:
+        load_success, load_result = LoadDataPoints(data_path)
+        if not load_success:
+            return
+        X, y = load_result
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2)
+
+        train_success, train_result = ModelTrainer.train_by_grid_search(
+            X_train, y_train, model_name)
+        if not train_success:
+            return
+        classifier = train_result['best_model']
+
+        validate_success, validate_result = ModelValidator.get_general_metrics(
+            np.asarray(X_test), y_test, classifier)
+        if not validate_success:
+            return
+        print(validate_result)
+
+    except Exception as e:
+        print("Result validation failed: %s" % e)
+        return
+
+
+# Valid_Feature_Selection_methods = {
+#     'GA': 'GA',
+#     'SA': 'SA',
+#     'PCC': 'PCC',
+#     'C2': 'C2',
+#     'AF': 'AF',
+#     'RFE': 'RFE',
+# }
+
+# Valid_Regression_Models = {
+#     "LinearRegression": LinearRegression,
+#     "BayesianRidge": BayesianRidge,
+#     "DecisionTreeRegressor": DecisionTreeRegressor,
+#     "MLPRegressor": MLPRegressor,
+#     "KNeighborsRegressor": KNeighborsRegressor,
+#     "GradientBoostingRegressor": GradientBoostingRegressor
+# }
 if __name__ == "__main__":
-    main()
+    # main("SA", "GradientBoostingRegressor")
+
+    # get_base_result(r"data\glassdoor_clean_data.csv", "DecisionTreeRegressor")
+
+    #            Data Path
+    validateResult(r"data\glassdoor_clean_data.csv",
+                   # Classifier Path
+                   r"result\SA\generation_41_fit_-41629919.79659961.model",
+                   # Mask Path
+                   r"result\SA\generation_41_fit_-41629919.79659961.genes")
