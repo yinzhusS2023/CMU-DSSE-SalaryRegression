@@ -152,6 +152,32 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
         return
 
 
+def get_base_result(data_path, model_name):
+    try:
+        load_success, load_result = LoadDataPoints(data_path)
+        if not load_success:
+            return
+        X, y = load_result
+        X_train, X_test, y_train, y_test = train_test_split(
+            X, y, test_size=0.2)
+
+        train_success, train_result = ModelTrainer.train_by_grid_search(
+            X_train, y_train, model_name)
+        if not train_success:
+            return
+        classifier = train_result['best_model']
+
+        validate_success, validate_result = ModelValidator.get_general_metrics(
+            np.asarray(X_test), y_test, classifier)
+        if not validate_success:
+            return
+        print(validate_result)
+
+    except Exception as e:
+        print("Result validation failed: %s" % e)
+        return
+
+
 # Valid_Feature_Selection_methods = {
 #     'GA': 'GA',
 #     'SA': 'SA',
@@ -169,9 +195,10 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
 #     "KNeighborsRegressor": KNeighborsRegressor,
 #     "GradientBoostingRegressor": GradientBoostingRegressor
 # }
-
 if __name__ == "__main__":
-    main("AF", "DecisionTreeRegressor")
+    # main("AF", "DecisionTreeRegressor")
+
+    get_base_result(r"data\glassdoor_clean_data.csv", "DecisionTreeRegressor")
 
     # #            Data Path
     # validateResult(r"data\glassdoor_clean_data.csv",

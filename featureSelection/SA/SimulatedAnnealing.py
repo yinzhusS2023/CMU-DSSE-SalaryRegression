@@ -52,11 +52,12 @@ class SimulatedAnnealing:
                             max_iterations=1000
                             ):
         try:
+
             start_time = time()
             current_state = SimulatedAnnealing.generate_initial_state(
                 X.shape[1])
 
-            current_score = SimulatedAnnealing.objective(
+            initial_score = current_score = SimulatedAnnealing.objective(
                 X, y, current_state, classifier, validation_function)
             best_state = current_state
             best_score = current_score
@@ -79,7 +80,9 @@ class SimulatedAnnealing:
                     # Determine whether to accept the candidate state
                     delta = current_score - candidate_score
 
-                    if delta < 0 or SimulatedAnnealing.energy_magnitude_equation_accepted(delta, temperature):
+                    adjusted_delta = abs(current_score-candidate_score)
+
+                    if delta < 0 or SimulatedAnnealing.energy_magnitude_equation_accepted(adjusted_delta, temperature):
                         # print("Iter {} Accepted".format(this_iteration))
                         accepted_time += 1
                         current_state = candidate_state
