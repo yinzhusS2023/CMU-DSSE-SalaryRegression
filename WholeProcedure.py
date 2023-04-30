@@ -196,9 +196,9 @@ def get_base_result(data_path, model_name):
 #     "GradientBoostingRegressor": GradientBoostingRegressor
 # }
 if __name__ == "__main__":
-    # main("AF", "DecisionTreeRegressor")
+    main("SA", "LinearRegression")
 
-    get_base_result(r"data\glassdoor_clean_data.csv", "DecisionTreeRegressor")
+    # get_base_result(r"data\glassdoor_clean_data.csv", "DecisionTreeRegressor")
 
     # #            Data Path
     # validateResult(r"data\glassdoor_clean_data.csv",
