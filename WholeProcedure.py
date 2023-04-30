@@ -50,16 +50,6 @@ def threshold_function(fitness):
     return abs(fitness) <= 40000
 
 
-valid_algo = {
-    'GA': 'GA',
-    'SA': 'SA',
-    'PCC': 'PCC',
-    'C2': 'C2',
-    'AF': 'AF',
-    'RFE': 'RFE',
-}
-
-
 def FeatureSelectionAdapter(X_train, y_train, method, algorithm='LinearRegression'):
     if method == 'GA':
         return genetic_algorithm(
@@ -89,7 +79,7 @@ def FeatureSelectionAdapter(X_train, y_train, method, algorithm='LinearRegressio
     return False, None
 
 
-def main():
+def main(feature_selection_method="GA", ML_algorithm="DecisionTreeRegressor"):
     load_success, loaded_data = LoadDataPoints()
     if not load_success:
         return
@@ -97,7 +87,7 @@ def main():
     X = np.asarray(X)
 
     feature_selection_success, feature_selection_result = FeatureSelectionAdapter(
-        X, y, 'GA', 'GradientBoostingRegressor')
+        X, y, feature_selection_method, ML_algorithm)
     if not feature_selection_success:
         return
     #  result_obj = {
@@ -114,7 +104,7 @@ def main():
         X, y, test_size=0.2)
 
     train_success, train_result = ModelTrainer.train_by_grid_search(
-        X_train, y_train)
+        X_train, y_train, model_name=ML_algorithm)
     if not train_success:
         return
     #     result_obj = {
@@ -162,12 +152,30 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
         return
 
 
-if __name__ == "__main__":
-    # main()
+# Valid_Feature_Selection_methods = {
+#     'GA': 'GA',
+#     'SA': 'SA',
+#     'PCC': 'PCC',
+#     'C2': 'C2',
+#     'AF': 'AF',
+#     'RFE': 'RFE',
+# }
 
-    #            Data Path
-    validateResult(r"data\glassdoor_clean_data.csv",
-                   # Classifier Path
-                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
-                   # Mask Path
-                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
+# Valid_Regression_Models = {
+#     "LinearRegression": LinearRegression,
+#     "BayesianRidge": BayesianRidge,
+#     "DecisionTreeRegressor": DecisionTreeRegressor,
+#     "MLPRegressor": MLPRegressor,
+#     "KNeighborsRegressor": KNeighborsRegressor,
+#     "GradientBoostingRegressor": GradientBoostingRegressor
+# }
+
+if __name__ == "__main__":
+    main("AF", "DecisionTreeRegressor")
+
+    # #            Data Path
+    # validateResult(r"data\glassdoor_clean_data.csv",
+    #                # Classifier Path
+    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
+    #                # Mask Path
+    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
