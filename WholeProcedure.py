@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 from IO.ModelIO import ModelIO
 from IO.ObjectWriter import ObjectManager
@@ -161,11 +160,11 @@ def validateResult(data_path, classifier_path, mask_path, y_label='salary'):
 
 
 if __name__ == "__main__":
-    # main()
+    main()
 
     # #            Data Path
-    validateResult(r"data\glassdoor_clean_data.csv",
-                   # Classifier Path
-                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
-                   # Mask Path
-                   r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
+    # validateResult(r"data\glassdoor_clean_data.csv",
+    #                # Classifier Path
+    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.model",
+    #                # Mask Path
+    #                r"result\GA\0402DTR2\generation_100_fit_-10393376.900645625.genes")
