@@ -49,7 +49,7 @@ class SimulatedAnnealing:
                             cooling_rate=0.8,
                             frozen_temperature=10**(-25),
                             temperature_constant=200,
-                            max_iterations=1000
+                            max_iterations=100
                             ):
         try:
 
