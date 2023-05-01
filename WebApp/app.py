@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, jsonify
 # from data_cleaner import clean_data
 # from model_predictor import predict_salary
 
@@ -48,7 +48,6 @@ def submit_form():
     # Return the predicted salary to the client
     # return jsonify(result=predicted_salary)
     return jsonify(result=999)
-
 
 
 if __name__ == '__main__':
