@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 # from data_cleaner import clean_data
 # from model_predictor import predict_salary
 
+
 app = Flask(__name__)
 
 

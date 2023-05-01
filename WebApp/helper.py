@@ -102,7 +102,6 @@ def transfer_strings():
         "Wholesale"
     ]
 
-
     benefits = [
         "Annual Leave",
         "Bereavement Leave",
@@ -139,7 +138,5 @@ def transfer_strings():
     return options
 
 
-
 if __name__ == '__main__':
     print(transfer_strings())
-
