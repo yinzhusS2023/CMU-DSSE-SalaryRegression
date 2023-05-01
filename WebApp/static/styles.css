@@ -9,27 +9,32 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 1rem;
-    background-color: lightgreen;
 }
 
 h1 {
     text-align: center;
+    color: green;
+    font-family: monospace;
+    font-size: xxx-large;
 }
 
 .inputs {
-    margin-left: 20px
+    width: 82%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
 }
 .drop-down-list, .text-input {
-    background-color: palegreen;
     margin-top: 12px;
     font-size: 18px;
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px dashed gainsboro;
 }
 
 select, input {
     width: 300px;
-    background-color:springgreen
+    background-color: palegreen;
 }
 
 .btn {
