@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title style="color:red">Am I under payed?</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <h1>Am I Underpaid?</h1>
 <h2>Describe your expected job below:</h2>
 
-<form method="post" class="inputs">
+<div class="inputs">
     <div class="drop-down-list">
         <label>Sponsored?</label>
         <select name="sponsored_or_not">
@@ -271,30 +272,101 @@
 
     <div class="text-input">
         <label>Reviews Pro</label>
-        <input type="textArea" name="reviews_pro">
+        <input type="text" name="reviews_pro">
     </div>
 
     <div class="text-input">
         <label>Reviews Con</label>
-        <input type="textArea" name="reviews_con">
+        <input type="text" name="reviews_con">
     </div>
 
     <div class="text-input">
         <label>Job Description</label>
-        <input type="textArea" name="job_description">
+        <input type="text" name="job_description">
     </div>
 
     <div class="div-buttons">
-        <button type="submit" class="btn color-1">Predict my salary!</button>
+        <button type="submit" class="btn color-1" id="submit-btn">Predict my salary!</button>
         <button type="button" class="btn color-2" onclick="location.reload()">Try again</button>
     </div>
 
-</form>
+</div>
 
-{% if result %}
-<h2 class="salary-result">Result: {{ result }}</h2>
-{% endif %}
-<h2 class="salary-result">The annual salary will be around: $120000</h2>
+<h2 class="warning-message"></h2>
+<h2 class="salary-result"></h2>
+
+<script>
+        $("#submit-btn").click(function() {
+            // Collect the input values
+            const sponsored_or_not = $("select[name='sponsored_or_not']").val();
+            const in_US_or_not = $("select[name='in_US_or_not']").val();
+            const company_size = $("select[name='company_size']").val();
+            const company_industry = $("select[name='company_industry']").val();
+            const company_type = $("select[name='company_type']").val();
+            const employee_benefits = $("select[name='employee_benefits']").val();
+            const employee_rating_benefits = $("select[name='employee_rating_benefits']").val();
+            const ceo_approval_rating = $("select[name='ceo_approval_rating']").val();
+            const recommend_to_friend_rating = $("select[name='recommend_to_friend_rating']").val();
+            const company_overall_rating = $("select[name='company_overall_rating']").val();
+            const job_level = $("select[name='job_level']").val();
+            const job_category = $("select[name='job_category']").val();
+            const reviews_pro = $("input[name='reviews_pro']").val();
+            const reviews_con = $("input[name='reviews_con']").val();
+            const job_description = $("input[name='job_description']").val();
+
+            if (reviews_pro == '' || reviews_pro == null || reviews_pro.length == 0) {
+                $(".salary-result").hide();
+                $(".warning-message").text("Please input Reviews Pro!");
+                $(".warning-message").show();
+            } else if (reviews_con == '' || reviews_con == null || reviews_con.length == 0) {
+                $(".salary-result").hide();
+                $(".warning-message").text("Please input Reviews Con!");
+                $(".warning-message").show();
+            } else if (job_description == '' || job_description == null || job_description.length == 0) {
+                $(".salary-result").hide();
+                $(".warning-message").text("Please input Job Description!");
+                $(".warning-message").show();
+            } else {
+                $.ajax({
+                    url: "/submit_form",
+                    type: "POST",
+                    data: JSON.stringify({
+                        sponsored_or_not: sponsored_or_not,
+                        in_US_or_not: in_US_or_not,
+                        company_size: company_size,
+                        company_industry: company_industry,
+                        company_type: company_type,
+                        employee_benefits: employee_benefits,
+                        employee_rating_benefits: employee_rating_benefits,
+                        ceo_approval_rating: ceo_approval_rating,
+                        recommend_to_friend_rating: recommend_to_friend_rating,
+                        company_overall_rating: company_overall_rating,
+                        job_level: job_level,
+                        job_category: job_category,
+                        reviews_pro: reviews_pro,
+                        reviews_con: reviews_con,
+                        job_description: job_description
+                    }),
+                    contentType: "application/json;charset=UTF-8",
+                    dataType: "json",
+                    success: function(response) {
+                        // Display the result from the server
+                        if (response.result) {
+                            $(".warning-message").hide();
+                            $(".salary-result").text("The Predicted Annual Salary will be around: $" + response.result);
+                            $(".salary-result").show();
+                        }
+                    },
+                    error: function() {
+                        alert("Error submitting the form");
+                    }
+                });
+            }
+
+            // Send an AJAX request to the server
+
+        });
+</script>
 
 </body>
 </html>

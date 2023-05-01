@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
+    max-width: 82%;
     margin: 0 auto;
     padding: 1rem;
 }
@@ -35,7 +35,7 @@ h1 {
 
 select, input {
     width: 300px;
-    background-color: palegreen;
+    font-size: medium;
 }
 
 .btn {
@@ -91,9 +91,15 @@ select, input {
 }
 
 .salary-result {
-    margin-top: 20px;
+    margin-top: 50px;
     text-align: center;
     color: darkblue;
+}
+
+.warning-message {
+    margin-top: 50px;
+    color: red;
+    text-align: center;
 }
 
 
