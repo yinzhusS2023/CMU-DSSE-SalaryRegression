@@ -1,6 +1,6 @@
 from config import dataloader_config
-from sentianalysis import SentimentAnalyzer
 from utils.dataframe import *
+from .sentianalysis import SentimentAnalyzer
 
 
 def _search_title(data: pd.DataFrame):
