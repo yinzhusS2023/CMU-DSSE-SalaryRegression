@@ -1,7 +1,13 @@
-from flask import Flask, render_template, request, jsonify
-# from data_cleaner import clean_data
-# from model_predictor import predict_salary
+import os
+import sys
 
+# Add the parent directory to the Python path
+parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(parent_directory)
+
+from flask import Flask, render_template, request, jsonify
+from dataloader.dataloader_s import DataLoaderSimple
+from Predict import Predictor
 
 app = Flask(__name__)
 
@@ -40,14 +46,17 @@ def submit_form():
     # 3. Finally, show the predicted_salary to the HTML
 
     # Call the clean_data function from data_cleaner.py
-    # cleaned_data = clean_data(dictionary)
+    dataloader = DataLoaderSimple()
+    cleaned_data = dataloader.fit_transform(dictionary)
 
     # Call the predict_salary function from model_predictor.py
-    # predicted_salary = predict_salary(cleaned_data)
+    predictor = Predictor('/Users/jeanjacques/PycharmProjects/CMU-DSSE-SalaryRegression/result/best.model',
+                          '/Users/jeanjacques/PycharmProjects/CMU-DSSE-SalaryRegression/result/best.genes')
+    predicted_salary = predictor.predict(cleaned_data)
 
     # Return the predicted salary to the client
     # return jsonify(result=predicted_salary)
-    return jsonify(result=999)
+    return jsonify(result=predicted_salary)
 
 
 if __name__ == '__main__':

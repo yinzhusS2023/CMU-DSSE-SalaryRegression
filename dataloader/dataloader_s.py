@@ -147,7 +147,7 @@ class DataLoaderSimple:
 
         # job_description
         try:
-            job_description = raw_data['job.description']
+            job_description = raw_data['job_description']
         except KeyError:
             raise KeyError("No job description found in the data")
         if job_description == '':
