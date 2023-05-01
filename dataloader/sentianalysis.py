@@ -1,9 +1,4 @@
-import nltk
 from textblob import TextBlob
-
-# nltk.download('punkt')
-# nltk.download('averaged_perceptron_tagger')
-# nltk.download('brown')
 
 
 class SentimentAnalyzer:
