@@ -50,8 +50,8 @@ def submit_form():
     cleaned_data = dataloader.fit_transform(dictionary)
 
     # Call the predict_salary function from model_predictor.py
-    predictor = Predictor('/Users/jeanjacques/PycharmProjects/CMU-DSSE-SalaryRegression/result/best.model',
-                          '/Users/jeanjacques/PycharmProjects/CMU-DSSE-SalaryRegression/result/best.genes')
+    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    predictor = Predictor(os.path.join(root_path, 'result/best.model'), os.path.join(root_path, 'result/best.genes'))
     predicted_salary = predictor.predict(cleaned_data)
 
     # Return the predicted salary to the client
